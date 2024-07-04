@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="with=device-width , initial-scale=1">
+        <title>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</title>
+    </head>
+
+    <body class="custom-body">
+        <h1 class="custom-title">Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
+        <h3 class="custom-h3">The algorithms that carry computer graphics</h3>
+
+        <p>
+            You might be aware that the beautiful worlds that you see in your favourite video games, or the character in your favourite animated movies, are all made by drawing lots of  little triangles to the screen.
+        </p>
+
+        <p>
+            Triangles are used as the primitive for the Rasterization algorithm because a triangle is the most basic polygon, any shape you wish to create, can be created with a combination of a finite number of triangles.
+        </p>
+
+        <p>
+            So then, the it follows that the algorithm to draw a triangle to the screen given it’s vertices is the most important part of the algorithm. In this blog post, I will be exploring 3 different ways to draw a triangle to the raster, i.e the screen which is made of discrete pixels.
+        </p>
+
+        <p>
+            And a tutorial about any algorithm is incomplete without some code, so here the <a href="https://github.com/Bruhout/fill-triangle" class="custom-link"> GitHub repository</a> for this blog.
+        </p>
+
+        <hr>
+
+        <h2 class="custom-h2">Preface</h2>
+
+        <p>
+            The first thing to understand is what the screen really is. When I say screen, I refer to an array of pixel values.
+        </p>
+        <p>
+            An image of 256×256 resolution means that the image data is contained in an array of size 256x256x3. The size is multiplied by 3 because each pixel has a Red, Green and Blue color value.
+        </p>
+        <p>
+            So then, drawing a triangle to the screen means coloring in the pixels that are going to fall inside of the triangle.
+        </p>
+
+        <hr>
+
+        <!-------------------------------------------------------->
+        <!-------------------------------------------------------->
+        <!-------------------------------------------------------->
+        <h2 class="custom-h2">The Barycentric Coordinate Method</h2>
+
+        <p>
+            This method loops over all the pixel on the screen and checks whether they fall inside of the triangle. The pixels that pass the test are then colored.
+        </p>
+        <p>
+            The way this test is conducted then, is using <b>Barycentric Coordinates</b> . I have a video up on my YouTube channels for the uninitiated, so go check that out to learn about barycentric coordinates.<br><br>Here is the utility function that calulcates the barycentric coordinates of a point for us
+        </p>
+        <code class="custom-code"><div class="indent">
+            bool get_b_coords(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D point , Vec3D* output)<br>
+            {<br>
+                <div class="indent">double area_total = get_tri_area(v1 , v2 , v3);<br>
+                double area1 = get_tri_area(v2 , point , v3);<br>
+                double area2 = get_tri_area(v3 , point , v1);<br>
+                double area3 = get_tri_area(v1 , point , v2);<br><br>
+                
+                output->x = area1 / area_total;<br>
+                output->y = area2 / area_total;<br>
+                output->z = area3 / area_total;<br><br>
+                
+                // a little bit of tolerance needs to be allowed because floating point operations are not perfectly accurate.<br>
+                if (output->x + output->y + output->z < 1.01 && output->x + output->y + output->z > 0.99)<br>
+                {<br>
+                    <div class="indent">return true;<br></div>
+                } else <br>
+                {<br>
+                    <div class="indent">return false;<br></div>
+                }<br></div>
+            }<br><br>
+            
+            // This one calculates the area of a given triangle.<br>
+            double get_tri_area(Vec3D v1 , Vec3D v2 , Vec3D v3)<br>
+            {<br><div class="indent">
+                Vec3D side12 = v2 - v1;<br>
+                Vec3D side23 = v3 - v2;<br>
+                Vec3D side31 = v1 - v3;<br><br>
+                
+                double height = ((side12*-1) - (side12 * -1).ProjectOnto(side23)).Magnitude();<br>
+                return height * side23.Magnitude();<br></div>
+            }<br>
+        </div></code>
+        <p>
+            Now we call this function for every pixel on the screen. Any pixels that evaluate to true are coloured in
+        </p>
+        <code class="custom-code"><div class="indent">
+            for (int i=0 ; i &lt; height ; i++)<br>
+            {<br><div class="indent">
+                for (int j=0 ;j &lt; width ; j++)<br>
+                {<br><div class="indent">
+                    point.x = (j / (double)width) + pixel_width/2;<br>
+                    point.y = (i / (double)height) + pixel_height/2;<br><br>
+            
+                    if (get_b_coords(v1 , v2 , v3 , point , &b_coords)==true)<br>
+                    {<br>
+                        <div class="indent">// color the pixel red<br></div>
+                    }<br>
+                    else <br>
+                    {<br>
+                        <div class="indent">// color the pixel blue<br></div>
+                    }<br></div>
+                }</div>
+            }<br>
+        </div></code>
+
+        <p>
+            And that’s all ! It’s really that simple. I timed this method and on average for I got 500 miliseconds, or half a second. That number doesnt mean much by itself, but as you will see, this method is quite slow compared to the others.
+        </p>
+        <p>
+            But we can speed it up by a lot using a <b>Bounding Box</b>. Instead of looping over the entire image, the loop only goes over a rectangular area that we determine using the algorithm I will now be discussing. The rectangle is such created that the entire triangle will lie inside of the rectangle.
+        </p>
+        <code class="custom-code"><div class="indent">
+            void get_bounding_box(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D* top_left , Vec3D bottom_right)<br>
+            {<br><div class="indent">
+                // Suppose min will return the minimum value among whatever is passed to it <br>
+                top_left->x = min(v1.x , v2.x , v3.x);<br>
+                top_left->y = min(v1.y , v2.y , v3.y);<br>
+     
+                bottom_right->x = max(v1.x , v2.x , v3.x);<br>
+                bottom_right->y = max(v1.y , v2.y , v3.y);<br></div>
+            }<br>
+        </div></code>
+
+        <p>
+            Just get the lowest x and y coordinates and the highest x and y coordinates among the vertices of the triangle. This is what the bounding box looks like around the triangle.
+        </p>
+        <img src="images/b_coords_bounded.jpg">
+        <p>
+            Only the pixels coloured in purple or red need to be looped over. You can see that the purple rectangle contains the entire triangle. The runtime of this fucntion goes from 500 milliseconds to 125 milliseconds.
+        </p>
+        <hr>
+        <h2>The Conditional Method</h2>
+        <p>
+            This method also works a bit like the barycentric coordinate method in the sense that we loop over every pixel in the entire image to test whether it falls inside the triangle.
+        </p>
+        <p>
+            However, we use a different test to determine whether a point is to be colored.
+        </p>
+        <p>
+            A triangle is constructed of 3 sides. These 3 side can be mathematically expressed as an equation. Using 2 points that the lie on the straight line, the following formula gives us the equation of the line.
+        </p>
+        <code class="custom-code">(y – y1)(x2 – x1) = (y2 – y1)(x – x1)</code>
+
+        <p>
+            Once we have the equation, we turn it into an inequality using the > or the < sign. This shades a half of the image. Any pixels that lie within the shaded area will satisfy the equation.
+        </p>
+        <p>
+            We obtain the equations for the three sides of the triangle and then we use equation, or more formally, the in-eqations to check whether the point lies within the triangle. Only a point saisfying all three inequations will like inside the triangle.
+        </p>
+        <p>
+            Here is a line inequation class that contains data about the equation of the line and which side of the line is shaded.
+        </p>
+
+        <code class="custom-code"><div class="indent">
+            class Line<br>
+            {<br>
+            public:<br><div class="indent">
+                float a;<br>
+                float b;<br>
+                float c;<br>
+                bool shaded_side; // if this is true, means the upper shaded_side is shaded<br><br>
+            
+                Line(Vec3D p1 , Vec3D p2 , Vec3D check_point)<br><div class="indent">
+                    : a(p1.y - p2.y),<br>
+                    b(p2.x - p1.x),<br>
+                    c(p2.y*p1.x - p1.y*p2.x)<br></div>
+                {<br>
+                    if (a*check_point.x + b*check_point.y + c > 0) {<br><div class="indent">
+                        <div class="indent">shaded_side = true;<br></div>
+                    } else {<br>
+                        <div class="indent">shaded_side = false;<br></div>
+                    }<br></div>
+                }<br><br>
+            
+                // check if a given point lines within the shaded region of the line<br>
+                bool point_check(Vec3D point)<br>
+                {<br><div class="indent">
+                    if (shaded_side == true)<br>
+                    {<br><div class="indent">
+                        if (a*point.x + b*point.y + c > 0) {<br>
+                            <div class="indent">return true;<br></div>
+                        } else {<br>
+                            <div class="indent">return false;<br></div>
+                        }<br></div>
+                    }<br>
+                    else<br>
+                    {<br><div class="indent">
+                        if (a*point.x + b*point.y + c < 0) {<br>
+                            <div class="indent">return true;<br></div>
+                        } else {<br>
+                            <div class="indent">return false;<br></div>
+                        }<br></div>
+                    }<br></div>
+                }<br></div>
+            };<br>
+        </div></code>
+
+        <p>
+            Similar to the previous method, we loop over every pixel in the image and color in the pixels that are satsify all three of the line equations.
+        </p>
+        <code class="custom-code"><div class="indent">
+            Vec3D v1(0.5f , 0.2f , 0.0f);<br>
+            Vec3D v2(0.7f , 0.5f , 0.0f);<br>
+            Vec3D v3(0.3f , 0.8f , 0.0f);<br><br>
+            
+            // These are the three line equations that we will check each pixel against<br>
+            Line line1(v1 , v2 , v3);<br>
+            Line line2(v2 , v3 , v1);<br>
+            Line line3(v3 , v1 , v2);<br>
+        </div></code><br>
+        <img src="images/conditional_bounded.jpg">
+
+        <hr>
+        <h2 class="custom-h2">The Scanline Method</h2>
+
+        <p>
+            The scanline method is inarguably the fastest and also the most confusing method of all three that we have discussed here.
+        </p>
+        <p>
+            This method is a little bit different from the previous methods because it does not have to loop over all the pixel on the screen. The scanline method can directly color in the correct pixel without having to check every pixel on the screen. I will cover it quickly here but you to read about it in more detail check out <a href="http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html" class="custom-link">this tutorial</a>.
+        </p>
+        <p>
+            In the scanline method we traverse down the y-axis, from the topmost to the bottom-most vertext of the triangle. For each y-coordinates, a bunch of continuous pixels are filled in the x-direction, like drawing a line for each y-coordinate in the triangle. Thus the name scanline.
+        </p>
+        <p>
+            Each of these lines starts at some x-coordinate and ends at some other x-coordinate. The most difficult part of implementing the algorithm is figuring out which x-coordinates to start and end at, such that only pixels inside of the triangle are filled.
+        </p>
+        <p>
+            The page I linked to before gives a very nice explanation, better than I could give here, so please do read that. And finally, here is the result.
+        </p><br>
+
+        <img src="images/scanline.jpg"><br>
+
+        <h3 class="custom-h3">
+            Make sure to check out the GitHub repository for the code because life is incomplete without the implemenation, and stay tuned on my page for the many more tutorials to come. Thank you for reading !
+        </h3>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+.indent {
+    margin-left: 2em;  /* Adjust the indentation value (e.g., 30px for 30 pixels) */
+}
+.custom-body {
+    background-color: #002449;
+    color: rgb(157, 212, 251);
+    margin-top: 10px;
+    margin-right: 200px;
+    margin-bottom: 15px;
+    margin-left: 200px;
+    font-family: "Lucida bright";
+    font-size: 20px;
+}
+.custom-title {
+    color: #3273e3;
+}
+.custom-h2 {
+    color: #3273e3;
+}
+.custom-h3 {
+    color: rgb(157, 212, 251);
+}
+.custom-link {
+    color: whitesmoke
+}
+.custom-code {
+    color: white;
+    font-size: 16px;
+}
