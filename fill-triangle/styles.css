@@ -1,19 +1,42 @@
 .indent {
     margin-left: 2em;  /* Adjust the indentation value (e.g., 30px for 30 pixels) */
 }
+
+
+
+/*custom body responsive*/
 .custom-body {
     background-color: #002449;
     color: rgb(157, 212, 251);
     margin-top: 10px;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    margin-left: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
     font-family: "Lucida bright";
     font-size: 20px;
 }
-.custom-title {
-    color: #3273e3;
+@media screen and (min-aspect-ratio: 1/1) {
+    .custom-body {
+      margin-right: 50px;
+      margin-left: 50px;
+    }
 }
+@media screen and (min-aspect-ratio: 16/10) {
+    .custom-body {
+      margin-right: 200px;
+      margin-left: 200px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .custom-body {
+      font-size: 15px;
+    }
+}
+
+
+.custom-h1 {
+    color: #3273e3;
+}  
 .custom-h2 {
     color: #3273e3;
 }
