@@ -55,7 +55,7 @@
         <p>
             The way this test is conducted then, is using <b>Barycentric Coordinates</b> . I have a video up on my YouTube channels for the uninitiated, so go check that out to learn about barycentric coordinates.<br><br>Here is the utility function that calulcates the barycentric coordinates of a point for us
         </p>
-        <code class="custom-code"><div class="indent">
+        <code class="custom-code">
             bool get_b_coords(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D point , Vec3D* output)<br>
             {<br>
                 <div class="indent">double area_total = get_tri_area(v1 , v2 , v3);<br>
@@ -87,11 +87,11 @@
                 double height = ((side12*-1) - (side12 * -1).ProjectOnto(side23)).Magnitude();<br>
                 return height * side23.Magnitude();<br></div>
             }<br>
-        </div></code>
+        </code>
         <p>
             Now we call this function for every pixel on the screen. Any pixels that evaluate to true are coloured in
         </p>
-        <code class="custom-code"><div class="indent">
+        <code class="custom-code">
             for (int i=0 ; i &lt; height ; i++)<br>
             {<br><div class="indent">
                 for (int j=0 ;j &lt; width ; j++)<br>
@@ -109,7 +109,7 @@
                     }<br></div>
                 }</div>
             }<br>
-        </div></code>
+        </code>
 
         <p>
             And that’s all ! It’s really that simple. I timed this method and on average for I got 500 miliseconds, or half a second. That number doesnt mean much by itself, but as you will see, this method is quite slow compared to the others.
@@ -117,7 +117,7 @@
         <p>
             But we can speed it up by a lot using a <b>Bounding Box</b>. Instead of looping over the entire image, the loop only goes over a rectangular area that we determine using the algorithm I will now be discussing. The rectangle is such created that the entire triangle will lie inside of the rectangle.
         </p>
-        <code class="custom-code"><div class="indent">
+        <code class="custom-code">
             void get_bounding_box(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D* top_left , Vec3D bottom_right)<br>
             {<br><div class="indent">
                 // Suppose min will return the minimum value among whatever is passed to it <br>
@@ -127,7 +127,7 @@
                 bottom_right->x = max(v1.x , v2.x , v3.x);<br>
                 bottom_right->y = max(v1.y , v2.y , v3.y);<br></div>
             }<br>
-        </div></code>
+        </code>
 
         <p>
             Just get the lowest x and y coordinates and the highest x and y coordinates among the vertices of the triangle. This is what the bounding box looks like around the triangle.
@@ -159,7 +159,7 @@
             Here is a line inequation class that contains data about the equation of the line and which side of the line is shaded.
         </p>
 
-        <code class="custom-code"><div class="indent">
+        <code class="custom-code">
             class Line<br>
             {<br>
             public:<br><div class="indent">
@@ -201,12 +201,12 @@
                     }<br></div>
                 }<br></div>
             };<br>
-        </div></code>
+        </code>
 
         <p>
             Similar to the previous method, we loop over every pixel in the image and color in the pixels that are satsify all three of the line equations.
         </p>
-        <code class="custom-code"><div class="indent">
+        <code class="custom-code">
             Vec3D v1(0.5f , 0.2f , 0.0f);<br>
             Vec3D v2(0.7f , 0.5f , 0.0f);<br>
             Vec3D v3(0.3f , 0.8f , 0.0f);<br><br>
@@ -215,7 +215,7 @@
             Line line1(v1 , v2 , v3);<br>
             Line line2(v2 , v3 , v1);<br>
             Line line3(v3 , v1 , v2);<br>
-        </div></code><br>
+        </code><br>
         <img src="images/conditional_bounded.jpg">
 
         <hr>
