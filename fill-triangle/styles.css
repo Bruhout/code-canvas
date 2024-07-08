@@ -50,3 +50,16 @@
     color: white;
     font-size: 16px;
 }
+
+.top-bar {
+    background-color: #002449;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-bottom: 1px solid #ddd; /* Optional bottom border */
+    display: flex; /* Allow horizontal alignment */
+    align-items: center; /* Center content vertically */
+}
+
+.top-bar img {
+    width: 150px;
+    height: 150px;
+}
