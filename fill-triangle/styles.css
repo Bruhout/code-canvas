@@ -59,6 +59,13 @@
     align-items: center; /* Center content vertically */
 }
 
+.header-title {
+    font-size: 100px;
+    font-family: "courier";
+    margin: 0 auto;
+    width: 1000px
+}
+
 .top-bar img {
     width: 150px;
     height: 150px;
