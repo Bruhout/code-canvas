@@ -1,0 +1,81 @@
+.indent {
+    margin-left: 2em;  /* Adjust the indentation value (e.g., 30px for 30 pixels) */
+}
+
+/*custom body responsive*/
+.custom-body {
+    background-color: #002449;
+    color: rgb(157, 212, 251);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-family: "Lucida bright";
+    font-size: 25px;
+}
+@media screen and (min-aspect-ratio: 1/1) {
+    .custom-body {
+      margin-right: 30px;
+      margin-left: 30px;
+    }
+}
+@media screen and (min-aspect-ratio: 16/10) {
+    .custom-body {
+      margin-right: 250px;
+      margin-left: 250px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .custom-body {
+      font-size: 15px;
+    }
+}
+
+
+.custom-h1 {
+    color: #3273e3;
+}  
+.custom-h2 {
+    color: #3273e3;
+}
+.custom-h3 {
+    color: rgb(157, 212, 251);
+}
+.custom-link {
+    color: whitesmoke
+}
+.custom-code {
+    color: white;
+    font-size: 20px;
+}
+
+.top-bar {
+    background-color: #002449;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-bottom: 2px solid #ddd; /* Optional bottom border */
+    display: flex; /* Allow horizontal alignment */
+    align-items: center; /* Center content vertically */;
+}
+@media screen and (max-width: 480px) {
+    .top-bar {
+        padding: 5px 5px; /* Adjust padding as needed */
+    }
+}
+
+.header-title {
+    font-size: 100px;
+    font-family: "courier";
+    width: 1200px;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+@media screen and (max-width: 480px) {
+    .header-title {
+        font-size: 50px /* Adjust padding as needed */
+    }
+}
+
+.top-bar img {
+    width: 150px;
+    height: 150px;
+}
