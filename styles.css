@@ -48,6 +48,12 @@
     color: white;
     font-size: 20px;
 }
+@media screen and (max-width: 480px) {
+    .custom-code {
+        font-size: 15px;
+    }
+}
+
 
 .top-bar {
     background-color: #002449;
@@ -78,4 +84,30 @@
 .top-bar img {
     width: 150px;
     height: 150px;
+}
+
+
+/* class for a blog post displayed on the home page*/
+.home-page-post {
+    padding: 1px 20px;
+    margin-right: 50px;
+    margin-left: 50px
+}
+
+.home-page-post img {
+    width: 300px;
+    height: 300px;
+    float: right
+}
+
+.home-page-post h1 {
+    font-size: 30px;
+    color: #3273e3;
+    text-decoration: none
+}
+
+.home-page-post p {
+    font-size: 23px;
+    color: white;
+    text-decoration: none
 }
