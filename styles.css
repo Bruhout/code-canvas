@@ -41,6 +41,10 @@
 .custom-h3 {
     color: rgb(157, 212, 251);
 }
+.custom-hr {
+    height: 3px;
+    color: white
+}
 .custom-link {
     color: whitesmoke
 }
@@ -54,7 +58,7 @@
     }
 }
 
-
+/*top bar with my logo and blog name*/
 .top-bar {
     background-color: #002449;
     padding: 10px 20px; /* Adjust padding as needed */
@@ -67,6 +71,11 @@
         padding: 5px 5px; /* Adjust padding as needed */
     }
 }
+.top-bar img {
+    width: 150px;
+    height: 150px;
+}
+
 
 .header-title {
     font-size: 100px;
@@ -80,10 +89,8 @@
         font-size: 50px /* Adjust padding as needed */
     }
 }
+.footer {
 
-.top-bar img {
-    width: 150px;
-    height: 150px;
 }
 
 
@@ -93,19 +100,16 @@
     margin-right: 50px;
     margin-left: 50px
 }
-
 .home-page-post img {
     width: 300px;
     height: 300px;
     float: right
 }
-
 .home-page-post h1 {
     font-size: 30px;
     color: #3273e3;
     text-decoration: none
 }
-
 .home-page-post p {
     font-size: 23px;
     color: white;
