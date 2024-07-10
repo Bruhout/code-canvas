@@ -2,6 +2,10 @@
     margin-left: 2em;  /* Adjust the indentation value (e.g., 30px for 30 pixels) */
 }
 
+.centered-obj {
+    margin: 0 auto
+}
+
 /*custom body responsive*/
 .custom-body {
     background-color: #002449;
@@ -89,6 +93,9 @@
         font-size: 50px /* Adjust padding as needed */
     }
 }
+
+
+
 .footer {
 
 }
