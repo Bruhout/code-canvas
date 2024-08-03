@@ -1,0 +1,131 @@
+.indent {
+    margin-left: 2em;  /* Adjust the indentation value (e.g., 30px for 30 pixels) */
+}
+
+.centered-obj {
+    margin: 0 auto
+}
+
+/*custom body responsive*/
+.custom-body {
+    background-color: #002449;
+    color: rgb(157, 212, 251);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-family: "Lucida bright";
+    font-size: 25px;
+}
+@media screen and (min-aspect-ratio: 1/1) {
+    .custom-body {
+      margin-right: 30px;
+      margin-left: 30px;
+    }
+}
+@media screen and (min-aspect-ratio: 16/10) {
+    .custom-body {
+      margin-right: 250px;
+      margin-left: 250px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .custom-body {
+      font-size: 15px;
+    }
+}
+
+
+.custom-h1 {
+    color: #3273e3;
+}  
+.custom-h2 {
+    color: #3273e3;
+}
+.custom-h3 {
+    color: rgb(157, 212, 251);
+}
+.custom-hr {
+    height: 3px;
+    color: white
+}
+.custom-link {
+    color: whitesmoke
+}
+.custom-code {
+    color: white;
+    font-size: 20px;
+}
+@media screen and (max-width: 480px) {
+    .custom-code {
+        font-size: 15px;
+    }
+}
+
+/*top bar with my logo and blog name*/
+.top-bar {
+    background-color: #002449;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+@media screen and (max-width: 480px) {
+    .top-bar {
+        padding: 5px 5px;
+    }
+}
+.top-bar img {
+    width: 150px;
+    height: 150px;
+}
+.top-bar-title {
+    font-size: 100px;
+    font-family: "courier";
+    font-weight: 500;
+    width: 1200px;
+    text-align: center;
+    margin: auto
+}
+@media screen and (max-width: 480px) {
+    .top-bar-title {
+        font-size: 50px /* Adjust padding as needed */
+    }
+}
+
+
+
+.footer {
+
+}
+
+
+/* used for blog post previews without the underline */
+.plain-text-link {
+    text-decoration: none;
+}
+
+/* class for a blog post displayed on the home page*/
+.home-page-post {
+    margin-top: 50px;
+    margin-bottom: 150px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+.home-page-post img {
+    width: 300px;
+    height: 300px;
+    float: right
+}
+.home-page-post h1 {
+    padding-right: 350px;
+	font-size: 30px;
+    color: #3273e3;
+    text-align: left
+}
+.home-page-post p {
+    padding-right: 350px;
+    font-size: 23px;
+    color: white;
+    text-align: left
+}

@@ -1,86 +1,156 @@
 <!DOCTYPE html>
-
 <html>
-    <!--web page header information-->
-    <head>
-        <link rel="stylesheet" href="styles.css">
-        <meta charset="utf-8">
-        <meta name="viewport" content="with=device-width , initial-scale=1">
-        <title>code-canvas: a blog about code and fun algorithms that make images and graphics</title>
-    </head>
 
-    <!--web page body-->
-    <body class="custom-body">
-        <header>
-            <div class="top-bar">
-                <a href="https://bruhout.github.io/code-canvas/index.html">
-                    <img src="logo.png">
-                </a>
-                <div class="header-title">
-                    code-canvas
-                </div>
-            </div>
-        </header>
+<head>
+	<title>code-canvas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="styles2.css">
+	<style>
+		body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+	</style>
+</head>
 
-        <h2 class="custom-h2">Blog Posts</h2>
+<body class="w3-light-grey">
 
-        <!--post 1-->
-        <a href="fill-triangle/index.html">
-            <div class="home-page-post">
-                <div class="home-page-post">
-                    <img src="fill-triangle/images/b_coords_bounded.jpg">
-                </div>
+	<div class="w3-content" style="max-width:1400px">
+		
+	<!-- Header -->
+	<header class="w3-container w3-center w3-padding-32 page-header"> 
+		<h1>CODE-CANVAS</h1>
+		<p>Welcome to the blog of <span class="w3-tag">Ishaan Gupta</span></p>
+	</header>
+	
+	<hr>
+	
+	<!-- Grid -->
+	<div class="w3-row">
 
-                <h1>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
+	<!-- Blog entries -->
+	<div class="w3-col l8 s12">
 
-                <p>
-                    You might be aware that the beautiful worlds that you see in your favourite video games, or the character in your favourite animated movies, are all made by drawing lots of little triangles to the screen. This blog discusses three different algorithms to draw triangles to the screen.
-                </p>
-            </div>
-        </a>
+		<!-- Blog entry 1--> <a href="fill-triangle/index.html" class="no-line-link">
+		<div class="w3-card-4 w3-margin w3-white">
+			<img src="fill-triangle/images/b_coords_bounded.jpg" alt="Nature" style="width:100%" height="500">
+			<div class="w3-container blog-entry">
+				<h3><b>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</b></h3>
+				<h5><span class="w3-opacity">August 4th , 2024</span></h5>
+			</div></a>
 
-        <br><br>
-        <!--post 2-->
-        <a href="texturing/index.html">
-            <div class="home-page-post">
-                <div class="home-page-post">
-                    <img src="texturing/images/output.png">
-                </div>
+			<div class="w3-container">
+				<p>
+					You might be aware that the beautiful worlds that you see in your favourite video games
+					, or the character in your favourite animated movies, are all made by drawing lots of 
+					little triangles to the screen. This blog discusses three different algorithms to draw
+					triangles to the screen.
+				</p>
+				<div class="w3-row">
+					<div class="w3-col m8 s12">
+						<a href="fill-triangle/index.html" class="no-line-link">
+							<p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                <h1>Texture Sampling</h1>
+		<hr>
 
-                <p>
-                    Images are applied on top of 3D geomtry in order to simulate object details without significant processing cost. This image is called the texture and this process is called texture sampling. In this blog post, we will explore exactly how the math behind the techinique works to give us the worlds we see in our beloved video games.
-                </p>
-            </div>
-        </a>
+		<!-- Blog entry 2--><a href="texturing/index.html" class="no-line-link">
+		<div class="w3-card-4 w3-margin w3-white">
+			<img src="texturing/images/output.jpg" alt="Norway" style="width:100%" height="500">
 
-        <br><br><br>
+			<div class="w3-container blog-entry">
+				<h3><b>Texture Sampling</b></h3>
+				<h5><span class="w3-opacity">August 4th, 2024</span></h5>
+			</div></a>
 
-        <!--post 3-->
-        <a href="linear-interpolation/index.html">
-            <div class="home-page-post">
-                <div class="home-page-post">
-                    <img src="linear-interpolation/images/lerp_output.jpg">
-                </div>
+			<div class="w3-container">
+				<p>
+					Images are applied on top of 3D geomtry in order to simulate object details without 
+					significant processing cost. This image is called the texture and this process is 
+					called texture sampling. In this blog post, we will explore exactly how the math 
+					behind the techinique works to give us the worlds we see in our beloved video games.
+				</p>
+				<div class="w3-row">
+					<div class="w3-col m8 s12">
+						<a href="texturing/index.html" class="no-line-link">
+							<p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+						</a>
+					</div>
 
-                <h1>Linear Interpolation in Computer Graphics</h1>
+				</div>
+			</div>
+		</div>
 
-                <p>
-                    Linear interpolation is a very commonly used process all across maths, and even more common in computer graphics. Linear interpolation helps us draw bezier curves, and linear interpolation is the cornerstone of any raster based 3D engine. In this blog post, we well be checking out the technique and the way it is used by a graphics engine to apparntly create data out of thin air.
-                </p>
-            </div>
-        </a>
+		<hr>
 
-        <br>
+		<!-- Blog entry 3--><a href="linear-interpolation/index.html" class="no-line-link">
+		<div class="w3-card-4 w3-margin w3-white">
+			<img src="linear-interpolation/images/lerp_output.jpg" alt="Norway" style="width:100%" height="500">
 
-        <hr class="custom-hr">
-        <footer>
-            Hi! My name is Ishaan Gupta and I'm an engineering student just starting university.
-            I created this blog out of my interest in computer graphics and computer generated imagery
-            and I just wanted to share some of the intersting stuff I learned through my time.<br>
-            The blog is incoherent in what it's about because you will find anything from mathematics to
-            theoretical computer science or literally antything else in STEM, but stay tuned !
-        </footer>
-    </body>
+			<div class="w3-container blog-entry">
+				<h3><b>Linear Interpolation in Computer Graphics</b></h3>
+				<h5><span class="w3-opacity">August 4th , 2024</span></h5>
+			</div></a>
+
+			<div class="w3-container">
+				<p>
+					Linear interpolation is a very commonly used process all across maths, and even more 
+					common in computer graphics. Linear interpolation helps us draw bezier curves, and 
+					linear interpolation is the cornerstone of any raster based 3D engine. In this blog 
+					post, we well be checking out the technique and the way it is used by a graphics engine
+					to apparntly create data out of thin air.
+				</p>
+				<div class="w3-row">
+					<div class="w3-col m8 s12">
+						<a href="linear-interpolation/index.html" class="no-line-link">
+							<p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+						</a>	
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- END BLOG ENTRIES -->
+
+	<!-- Introduction menu -->
+	<div class="w3-col l4">
+		<!-- About Card -->
+		<div class="w3-card w3-margin w3-margin-top">
+			<img src="logo.png" style="width:100%">
+			<div class="w3-container w3-white">
+				<h4><b>Ishaan Gupta</b></h4>
+				<p>
+					Hi! I'm an engineering student just starting university.
+					I created this blog out of my interest in computer graphics and computer generated imagery
+					and I just wanted to share some of the intersting stuff I learned through my time.
+					<br>
+					The blog is incoherent in what it's about because you will find anything from mathematics to
+					theoretical computer science or literally antything else in STEM, but stay tuned !
+				</p>
+			</div>
+		</div>
+	
+	<!-- END Introduction Menu -->
+	</div>
+
+	<!-- END GRID -->
+	</div><br>
+
+	<!-- END w3-content -->
+	</div>
+
+	<!-- Footer -->
+	<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+		<button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
+		<button class="w3-button w3-black w3-padding-large w3-margin-bottom">Next »</button>
+		<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+	</footer>
+
+</body>
+
 </html>
+
