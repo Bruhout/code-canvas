@@ -2,24 +2,27 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="../styles_.css">
+        <link rel="stylesheet" href="../styles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="with=device-width , initial-scale=1">
         <title>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</title>
     </head>
+    
+    <!-- Header -->
+    <div class="w3-content" style="max-width:1400px">
 
-    <body class="custom-body">
-        <div class="top-bar">
-            <a href="https://bruhout.github.io/code-canvas/index.html">
-                <img src="../logo.png">
-            </a>
-            <div class="top-bar-title">
-                code-canvas
-            </div>
-        </div>
+    <header class="w3-container w3-center w3-padding-32 page-header"> 
+        <h1>CODE-CANVAS</h1>
+        <p>Welcome to the blog of <span class="w3-tag">Ishaan Gupta</span></p>
+    </header>
 
-        <h1 class="custom-h1">Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
-        <h3 class="custom-h3">The algorithms that carry computer graphics</h3>
+    <hr class="head-rule">
+
+    <body class="my-pink base-text-post">
+
+
+        <h1 class="my-bold-text">Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
+        <h3>The algorithms that carry computer graphics</h3>
 
         <p>
             You might be aware that the beautiful worlds that you see in your favourite video games, or the character in your favourite animated movies, are all made by drawing lots of  little triangles to the screen.
@@ -34,12 +37,12 @@
         </p>
 
         <p>
-            And a tutorial about any algorithm is incomplete without some code, so here the <a href="https://github.com/Bruhout/fill-triangle" class="custom-link"> GitHub repository</a> for this blog.
+            And a tutorial about any algorithm is incomplete without some code, so here the <a href="https://github.com/Bruhout/fill-triangle" class="custom-link my-dark-pink-text my-bold-text"> GitHub repository</a> for this blog.
         </p>
 
-        <hr>
+        <hr class="general-rule">
 
-        <h2 class="custom-h2">Preface</h2>
+        <h2 class="my-bold-text">Preface</h2>
 
         <p>
             The first thing to understand is what the screen really is. When I say screen, I refer to an array of pixel values.
@@ -51,12 +54,12 @@
             So then, drawing a triangle to the screen means coloring in the pixels that are going to fall inside of the triangle.
         </p>
 
-        <hr>
+        <hr class="general-rule">
 
         <!-------------------------------------------------------->
         <!-------------------------------------------------------->
         <!-------------------------------------------------------->
-        <h2 class="custom-h2">The Barycentric Coordinate Method</h2>
+        <h2 class="my-bold-text">The Barycentric Coordinate Method</h2>
 
         <p>
             This method loops over all the pixel on the screen and checks whether they fall inside of the triangle. The pixels that pass the test are then colored.
@@ -64,7 +67,7 @@
         <p>
             The way this test is conducted then, is using <b>Barycentric Coordinates</b> . I have a video up on my YouTube channels for the uninitiated, so go check that out to learn about barycentric coordinates.<br><br>Here is the utility function that calulcates the barycentric coordinates of a point for us
         </p>
-        <code class="custom-code">
+        <div class="my-mid-pink code-div"><code>
             bool get_b_coords(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D point , Vec3D* output)<br>
             {<br>
                 <div class="indent">double area_total = get_tri_area(v1 , v2 , v3);<br>
@@ -96,11 +99,11 @@
                 double height = ((side12*-1) - (side12 * -1).ProjectOnto(side23)).Magnitude();<br>
                 return height * side23.Magnitude();<br></div>
             }<br>
-        </code>
+        </code></div>
         <p>
             Now we call this function for every pixel on the screen. Any pixels that evaluate to true are coloured in
         </p>
-        <code class="custom-code">
+        <div class="my-mid-pink code-div"><code>
             for (int i=0 ; i &lt; height ; i++)<br>
             {<br><div class="indent">
                 for (int j=0 ;j &lt; width ; j++)<br>
@@ -118,7 +121,7 @@
                     }<br></div>
                 }</div>
             }<br>
-        </code>
+        </code></div>
 
         <p>
             And that’s all ! It’s really that simple. I timed this method and on average for I got 500 miliseconds, or half a second. That number doesnt mean much by itself, but as you will see, this method is quite slow compared to the others.
@@ -126,7 +129,7 @@
         <p>
             But we can speed it up by a lot using a <b>Bounding Box</b>. Instead of looping over the entire image, the loop only goes over a rectangular area that we determine using the algorithm I will now be discussing. The rectangle is such created that the entire triangle will lie inside of the rectangle.
         </p>
-        <code class="custom-code">
+        <div class="my-mid-pink code-div"><code>
             void get_bounding_box(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D* top_left , Vec3D bottom_right)<br>
             {<br><div class="indent">
                 // Suppose min will return the minimum value among whatever is passed to it <br>
@@ -136,7 +139,7 @@
                 bottom_right->x = max(v1.x , v2.x , v3.x);<br>
                 bottom_right->y = max(v1.y , v2.y , v3.y);<br></div>
             }<br>
-        </code>
+        </code></div>
 
         <p>
             Just get the lowest x and y coordinates and the highest x and y coordinates among the vertices of the triangle. This is what the bounding box looks like around the triangle.
@@ -145,8 +148,8 @@
         <p>
             Only the pixels coloured in purple or red need to be looped over. You can see that the purple rectangle contains the entire triangle. The runtime of this fucntion goes from 500 milliseconds to 125 milliseconds.
         </p>
-        <hr>
-        <h2>The Conditional Method</h2>
+        <hr class="general-rule">
+        <h2 class="my-bold-text">The Conditional Method</h2>
         <p>
             This method also works a bit like the barycentric coordinate method in the sense that we loop over every pixel in the entire image to test whether it falls inside the triangle.
         </p>
@@ -156,6 +159,8 @@
         <p>
             A triangle is constructed of 3 sides. These 3 side can be mathematically expressed as an equation. Using 2 points that the lie on the straight line, the following formula gives us the equation of the line.
         </p>
+
+        <!-- do this with latex when youve learned -->
         <code class="custom-code">(y – y1)(x2 – x1) = (y2 – y1)(x – x1)</code>
 
         <p>
@@ -168,7 +173,7 @@
             Here is a line inequation class that contains data about the equation of the line and which side of the line is shaded.
         </p>
 
-        <code class="custom-code">
+        <div class="my-mid-pink code-div"><code>
             class Line<br>
             {<br>
             public:<br><div class="indent">
@@ -210,12 +215,12 @@
                     }<br></div>
                 }<br></div>
             };<br>
-        </code>
+        </code></div>
 
         <p>
             Similar to the previous method, we loop over every pixel in the image and color in the pixels that are satsify all three of the line equations.
         </p>
-        <code class="custom-code">
+        <div class="my-mid-pink code-div"><code>
             Vec3D v1(0.5f , 0.2f , 0.0f);<br>
             Vec3D v2(0.7f , 0.5f , 0.0f);<br>
             Vec3D v3(0.3f , 0.8f , 0.0f);<br><br>
@@ -224,11 +229,14 @@
             Line line1(v1 , v2 , v3);<br>
             Line line2(v2 , v3 , v1);<br>
             Line line3(v3 , v1 , v2);<br>
-        </code><br>
+        </code></div>
+        
+        <br>
+        
         <img src="images/conditional_bounded.jpg">
 
-        <hr>
-        <h2 class="custom-h2">The Scanline Method</h2>
+        <hr class="general-rule">
+        <h2 class="my-bold-text">The Scanline Method</h2>
 
         <p>
             The scanline method is inarguably the fastest and also the most confusing method of all three that we have discussed here.
@@ -248,8 +256,10 @@
 
         <img src="images/scanline.jpg"><br>
 
-        <h3 class="custom-h3">
+        <hr class="general-rule">
+
+        <div class="outro-div">
             Make sure to check out the GitHub repository for the code because life is incomplete without the implemenation, and stay tuned on my page for the many more tutorials to come. Thank you for reading !
-        </h3>
+        </div>
     </body>
 </html>

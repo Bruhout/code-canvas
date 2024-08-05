@@ -234,27 +234,89 @@ h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin
 .w3-border-pale-yellow,.w3-hover-border-pale-yellow:hover{border-color:#ffffcc!important}.w3-border-pale-blue,.w3-hover-border-pale-blue:hover{border-color:#e7ffff!important}
 
 
+/* color classes */
+.my-pink {
+    background-color: #c9a7a7;
+}
+.my-mid-pink {
+    background-color: #e18383;
+}
+.my-dark-pink {
+    background-color: #f26d7c;
+}
+.my-pink-text {
+    color: #c9a7a7;
+}
+.my-dark-pink-text {
+    color: #990c1db5;
+}
+
+/* code canvas header classes */
 .page-header h1 {
     text-decoration: none;
     font-size: 60px;
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
 }
-
 .page-header p {
     font-size: 20px;
     text-decoration: none;
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
 }
 
+/* blog entry stuff */
 .blog-entry h3 {
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
 }
 
+
+
+/* base text post stuff */
+.base-text-post {
+    font-size: 20px;
+    font-family: HoeflerText-Regular, Cochin, Georgia, serif;
+    margin-right: 700px;
+    margin-left: 200px;
+}
+.base-text-post h1 {
+    font-family: HoeflerText-Regular, Cochin, Georgia, serif;
+}
+.base-text-post h2 {
+    font-family: HoeflerText-Regular, Cochin, Georgia, serif;
+}
+.base-text-post h3 {
+    font-family: HoeflerText-Regular, Cochin, Georgia, serif;
+}
+.my-bold-text {
+    font-weight: 1000;
+}
+
+
+/* misc */
+.head-rule {
+    width: 100%;
+    color: black;
+    border-top: 2px solid #000000;
+}
+.general-rule {
+    margin: 30px 1px;
+    width: 100%;
+    color: black;
+    border-top: 2px solid #000000;
+}
 .no-line-link {
     text-decoration: none;
 }
 
-#head-rule {
-    width: 100%;
-    color: black;
+/* code related classes */
+.code-div {
+    padding: 20px 40px;
+}
+.indent {
+    margin-left: 2em;
+}
+
+/* outro div */
+.outro-div {
+    margin: 50px 50px;
+    font-size: 30px;
 }
