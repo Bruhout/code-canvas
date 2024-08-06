@@ -3,6 +3,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../styles.css">
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="with=device-width , initial-scale=1">
         <title>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</title>
@@ -19,7 +20,6 @@
     <hr class="head-rule">
 
     <body class="my-pink base-text-post">
-
 
         <h1 class="my-bold-text">Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
         <h3>The algorithms that carry computer graphics</h3>
@@ -161,7 +161,9 @@
         </p>
 
         <!-- do this with latex when youve learned -->
-        <code class="custom-code">(y – y1)(x2 – x1) = (y2 – y1)(x – x1)</code>
+        <p>
+            \[{(y - y_1) \over (y_2 - y_1)} = {(x - x_1) \over (x_2 - x_1)}\]
+        </p>
 
         <p>
             Once we have the equation, we turn it into an inequality using the > or the < sign. This shades a half of the image. Any pixels that lie within the shaded area will satisfy the equation.
