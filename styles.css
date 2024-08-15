@@ -257,6 +257,11 @@ h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin
     font-size: 60px;
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
 }
+@media (max-width: 700px) {
+    .page-header h1 {
+        font-size: 30px;
+    }
+}
 .page-header p {
     font-size: 20px;
     text-decoration: none;
@@ -277,14 +282,35 @@ h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin
     margin-right: 700px;
     margin-left: 200px;
 }
+@media (max-width: 700px) {
+    .base-text-post {
+        font-size: 10px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .base-text-post img {
+        width: 250px;
+    }
+}
 .base-text-post h1 {
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
+}
+@media (max-width: 700px) {
+    .base-text-post h1 {
+        font-size: 20px;
+    }
 }
 .base-text-post h2 {
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
 }
+
 .base-text-post h3 {
     font-family: HoeflerText-Regular, Cochin, Georgia, serif;
+}
+@media (max-width: 700px) {
+    .base-text-post h3 {
+        font-size: 15px;
+    }
 }
 .my-bold-text {
     font-weight: 1000;
@@ -307,6 +333,7 @@ h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin
     text-decoration: none;
 }
 
+
 /* code related classes */
 .code-div {
     padding: 20px 40px;
@@ -319,4 +346,10 @@ h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin
 .outro-div {
     margin: 50px 50px;
     font-size: 30px;
+}
+@media (max-width: 700px) {
+    .outro-div {
+        margin: 10px 10px;
+        font-size: 20px;
+    }
 }
