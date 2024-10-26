@@ -2,6 +2,12 @@
     margin-left: 200px;
     margin-right: 700px;
 }
+@media only screen and (max-width: 768px) {
+  .custom-body {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
 
 .custom-code {
     font-family: monospace;
