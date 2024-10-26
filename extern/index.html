@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="with=device-width , initial-scale=1">
+    <title>extern keyword in the C programming language</title>
+</head>
+
+
+<body class="custom-body">
+
+    <header class="page-header"> 
+        <h1>CODE-CANVAS</h1>
+        <h3>Welcome to the blog of Ishaan Gupta</3>
+    </header>
+
+    <hr>
+
+    <p>The <code class="inline-code">extern</code> keyword in C/C++ is short for external linkage</p>
+
+    <p>External linkage is the process of having the linked resolve references after compilation which allows functions and variables to be shared between translation units</p>
+    
+    main.c<br>
+    <div class="code-div">
+    <code class="custom-code">
+
+        // function is declared but not defined. Even when making use of external linkage, the function declaration is required in every translation unit that wishes to use the function / variable<br>
+        <br>
+        int sum(int a , int b);<br>
+        <br>
+        int main(void)<br>
+        {<br>
+            <div class="indent-div">printf("%i\n" , sum(10 , 20));<br></div>
+        }<br>
+    </code>
+    </div>
+    
+    <br>
+
+    math.c<br>
+    <div class="code-div">
+    <code class="custom-code">
+        int sum(int a , int b)<br>
+        {<br>
+            <div class="indent-div">return a + b;<br></div>
+        }<br>
+    </code>
+</div>
+
+<p>
+    The linker will compare the function declaration in <code class="inline-code">main.c</code> with the definition in <code class="inline-code">math.c</code>.
+    If they have same function prototype, the linker will link them together.
+</p>
+<p>
+    Functions by default have external linkage available to them without explicit use of the <code class="inline-code">extern</code> keyword. 
+    But variables need to be flagged as <code class="inline-code">extern</code> during declaration to make external linkage available.
+</p>
+<p>Here is how external linkage can be used for variable using the <code class="inline-code">extern</code> keyword.</p>
+
+pi.c
+<div class="code-div">
+<code class="custom-code">
+    float pi = 3.1415f;
+</code>
+</div>
+
+<br>
+
+main.c
+<div class="code-div">
+<code class="custom-code">
+    extern float pi;<br>
+    <br>
+    int main(void)<br>
+    {<br>
+        <div class="indent-div">printf("%i\n" , pi);<br></div>
+        <div class="indent-div">printf("%f\n" , circle_area(1.0f));<br></div>
+    }<br>
+</code>
+</div>
+
+<p><code class="inline-code">pi</code> can now be shared between multiple translation units now.</p>
+
+area.c
+<div class="code-div">
+<code class="custom-code">
+    extern float pi;<br>
+    <br>
+    float cicle_area(float radius)<br>
+    { return radius*radius * pi; }<br>
+</code>
+</div>
+
+</body>
+
+
+
+
+
+</html>
