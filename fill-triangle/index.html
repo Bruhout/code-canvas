@@ -2,26 +2,21 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="../styles.css">
+        <link rel="stylesheet" href="styles.css">
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="with=device-width , initial-scale=1">
         <title>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</title>
     </head>
     
-    <!-- Header -->
-    <div class="w3-content" style="max-width:1400px">
+    <body class="custom-body">
 
-    <header class="w3-container w3-center w3-padding-32 page-header"> 
-        <h1>CODE-CANVAS</h1>
-        <p>Welcome to the blog of <span class="w3-tag">Ishaan Gupta</span></p>
-    </header>
+        <header class="page-header"> 
+            <h1>CODE-CANVAS</h1>
+            <h3>Welcome to the blog of Ishaan Gupta</3>
+        </header>
 
-    <hr class="head-rule">
-
-    <body class="my-pink base-text-post">
-
-        <h1 class="my-bold-text">Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
+        <h1>Drawing Triangles: Barycentric Coordinate, Conditional, and Scanline Algorithms</h1>
         <h3>The algorithms that carry computer graphics</h3>
 
         <p>
@@ -40,9 +35,9 @@
             And a tutorial about any algorithm is incomplete without some code, so here the <a href="https://github.com/Bruhout/fill-triangle" class="custom-link my-dark-pink-text my-bold-text"> GitHub repository</a> for this blog.
         </p>
 
-        <hr class="general-rule">
+        <hr>
 
-        <h2 class="my-bold-text">Preface</h2>
+        <h2>Preface</h2>
 
         <p>
             The first thing to understand is what the screen really is. When I say screen, I refer to an array of pixel values.
@@ -54,12 +49,9 @@
             So then, drawing a triangle to the screen means coloring in the pixels that are going to fall inside of the triangle.
         </p>
 
-        <hr class="general-rule">
+        <hr>
 
-        <!-------------------------------------------------------->
-        <!-------------------------------------------------------->
-        <!-------------------------------------------------------->
-        <h2 class="my-bold-text">The Barycentric Coordinate Method</h2>
+        <h2>The Barycentric Coordinate Method</h2>
 
         <p>
             This method loops over all the pixel on the screen and checks whether they fall inside of the triangle. The pixels that pass the test are then colored.
@@ -67,10 +59,10 @@
         <p>
             The way this test is conducted then, is using <b>Barycentric Coordinates</b> . I have a video up on my YouTube channels for the uninitiated, so go check that out to learn about barycentric coordinates.<br><br>Here is the utility function that calulcates the barycentric coordinates of a point for us
         </p>
-        <div class="my-mid-pink code-div"><code>
+        <div class="code-div"><code class="custom-code">
             bool get_b_coords(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D point , Vec3D* output)<br>
             {<br>
-                <div class="indent">double area_total = get_tri_area(v1 , v2 , v3);<br>
+                <div class="indent-div">double area_total = get_tri_area(v1 , v2 , v3);<br>
                 double area1 = get_tri_area(v2 , point , v3);<br>
                 double area2 = get_tri_area(v3 , point , v1);<br>
                 double area3 = get_tri_area(v1 , point , v2);<br><br>
@@ -82,16 +74,16 @@
                 // a little bit of tolerance needs to be allowed because floating point operations are not perfectly accurate.<br>
                 if (output->x + output->y + output->z < 1.01 && output->x + output->y + output->z > 0.99)<br>
                 {<br>
-                    <div class="indent">return true;<br></div>
+                    <div class="indent-div">return true;<br></div>
                 } else <br>
                 {<br>
-                    <div class="indent">return false;<br></div>
+                    <div class="indent-div">return false;<br></div>
                 }<br></div>
             }<br><br>
             
             // This one calculates the area of a given triangle.<br>
             double get_tri_area(Vec3D v1 , Vec3D v2 , Vec3D v3)<br>
-            {<br><div class="indent">
+            {<br><div class="indent-div">
                 Vec3D side12 = v2 - v1;<br>
                 Vec3D side23 = v3 - v2;<br>
                 Vec3D side31 = v1 - v3;<br><br>
@@ -103,21 +95,21 @@
         <p>
             Now we call this function for every pixel on the screen. Any pixels that evaluate to true are coloured in
         </p>
-        <div class="my-mid-pink code-div"><code>
+        <div class="code-div"><code class="custom-code">
             for (int i=0 ; i &lt; height ; i++)<br>
-            {<br><div class="indent">
+            {<br><div class="indent-div">
                 for (int j=0 ;j &lt; width ; j++)<br>
-                {<br><div class="indent">
+                {<br><div class="indent-div">
                     point.x = (j / (double)width) + pixel_width/2;<br>
                     point.y = (i / (double)height) + pixel_height/2;<br><br>
             
                     if (get_b_coords(v1 , v2 , v3 , point , &b_coords)==true)<br>
                     {<br>
-                        <div class="indent">// color the pixel red<br></div>
+                        <div class="indent-div">// color the pixel red<br></div>
                     }<br>
                     else <br>
                     {<br>
-                        <div class="indent">// color the pixel blue<br></div>
+                        <div class="indent-div">// color the pixel blue<br></div>
                     }<br></div>
                 }</div>
             }<br>
@@ -129,9 +121,9 @@
         <p>
             But we can speed it up by a lot using a <b>Bounding Box</b>. Instead of looping over the entire image, the loop only goes over a rectangular area that we determine using the algorithm I will now be discussing. The rectangle is such created that the entire triangle will lie inside of the rectangle.
         </p>
-        <div class="my-mid-pink code-div"><code>
+        <div class="code-div"><code class="custom-code">
             void get_bounding_box(Vec3D v1 , Vec3D v2 , Vec3D v3 , Vec3D* top_left , Vec3D bottom_right)<br>
-            {<br><div class="indent">
+            {<br><div class="indent-div">
                 // Suppose min will return the minimum value among whatever is passed to it <br>
                 top_left->x = min(v1.x , v2.x , v3.x);<br>
                 top_left->y = min(v1.y , v2.y , v3.y);<br>
@@ -150,8 +142,8 @@
         <p>
             Only the pixels coloured in purple or red need to be looped over. You can see that the purple rectangle contains the entire triangle. The runtime of this fucntion goes from 500 milliseconds to 125 milliseconds.
         </p>
-        <hr class="general-rule">
-        <h2 class="my-bold-text">The Conditional Method</h2>
+        <hr>
+        <h2>The Conditional Method</h2>
         <p>
             This method also works a bit like the barycentric coordinate method in the sense that we loop over every pixel in the entire image to test whether it falls inside the triangle.
         </p>
@@ -164,7 +156,9 @@
 
         <!-- do this with latex when youve learned -->
         <p>
-            \[{(y - y_1) \over (y_2 - y_1)} = {(x - x_1) \over (x_2 - x_1)}\]
+            \[
+                {(y - y_1) \over (y_2 - y_1)} = {(x - x_1) \over (x_2 - x_1)}
+            \]
         </p>
 
         <p>
@@ -177,44 +171,44 @@
             Here is a line inequation class that contains data about the equation of the line and which side of the line is shaded.
         </p>
 
-        <div class="my-mid-pink code-div"><code>
+        <div class="code-div"><code class="custom-code">
             class Line<br>
             {<br>
-            public:<br><div class="indent">
+            public:<br><div class="indent-div">
                 float a;<br>
                 float b;<br>
                 float c;<br>
                 bool shaded_side; // if this is true, means the upper shaded_side is shaded<br><br>
             
-                Line(Vec3D p1 , Vec3D p2 , Vec3D check_point)<br><div class="indent">
+                Line(Vec3D p1 , Vec3D p2 , Vec3D check_point)<br><div class="indent-div">
                     : a(p1.y - p2.y),<br>
                     b(p2.x - p1.x),<br>
                     c(p2.y*p1.x - p1.y*p2.x)<br></div>
                 {<br>
-                    if (a*check_point.x + b*check_point.y + c > 0) {<br><div class="indent">
-                        <div class="indent">shaded_side = true;<br></div>
+                    if (a*check_point.x + b*check_point.y + c > 0) {<br><div class="indent-div">
+                        <div class="indent-div">shaded_side = true;<br></div>
                     } else {<br>
-                        <div class="indent">shaded_side = false;<br></div>
+                        <div class="indent-div">shaded_side = false;<br></div>
                     }<br></div>
                 }<br><br>
             
                 // check if a given point lines within the shaded region of the line<br>
                 bool point_check(Vec3D point)<br>
-                {<br><div class="indent">
+                {<br><div class="indent-div">
                     if (shaded_side == true)<br>
-                    {<br><div class="indent">
+                    {<br><div class="indent-div">
                         if (a*point.x + b*point.y + c > 0) {<br>
-                            <div class="indent">return true;<br></div>
+                            <div class="indent-div">return true;<br></div>
                         } else {<br>
-                            <div class="indent">return false;<br></div>
+                            <div class="indent-div">return false;<br></div>
                         }<br></div>
                     }<br>
                     else<br>
-                    {<br><div class="indent">
+                    {<br><div class="indent-div">
                         if (a*point.x + b*point.y + c < 0) {<br>
-                            <div class="indent">return true;<br></div>
+                            <div class="indent-div">return true;<br></div>
                         } else {<br>
-                            <div class="indent">return false;<br></div>
+                            <div class="indent-div">return false;<br></div>
                         }<br></div>
                     }<br></div>
                 }<br></div>
@@ -224,7 +218,7 @@
         <p>
             Similar to the previous method, we loop over every pixel in the image and color in the pixels that are satsify all three of the line equations.
         </p>
-        <div class="my-mid-pink code-div"><code>
+        <div class="code-div"><code class="custom-code">
             Vec3D v1(0.5f , 0.2f , 0.0f);<br>
             Vec3D v2(0.7f , 0.5f , 0.0f);<br>
             Vec3D v3(0.3f , 0.8f , 0.0f);<br><br>
@@ -239,8 +233,8 @@
         
         <img src="images/conditional_bounded.jpg">
 
-        <hr class="general-rule">
-        <h2 class="my-bold-text">The Scanline Method</h2>
+        <hr>
+        <h2>The Scanline Method</h2>
 
         <p>
             The scanline method is inarguably the fastest and also the most confusing method of all three that we have discussed here.
@@ -260,10 +254,8 @@
 
         <img src="images/scanline.jpg"><br>
 
-        <hr class="general-rule">
+        <hr>
 
-        <div class="outro-div">
-            Make sure to check out the GitHub repository for the code because life is incomplete without the implemenation, and stay tuned on my page for the many more tutorials to come. Thank you for reading !
-        </div>
+        <p>Make sure to check out the GitHub repository for the code because life is incomplete without the implemenation, and stay tuned on my page for the many more tutorials to come. Thank you for reading !</p>
     </body>
 </html>
